@@ -204,15 +204,16 @@
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 24px;
-            text-align: left;
+            text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 320px;
+            justify-content: center;
+            align-items: center;
+            min-height: 360px;
         }
 
         .bundle-card:hover {
@@ -229,10 +230,11 @@
 
         .bundle-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 12px;
+            width: 100%;
         }
 
         .bundle-badge {
@@ -256,30 +258,42 @@
             white-space: nowrap;
         }
 
+        .bundle-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
         .bundle-data {
-            font-size: 44px;
-            font-weight: 800;
+            font-size: 64px;
+            font-weight: 900;
             color: var(--mtn-blue);
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             line-height: 1;
+            letter-spacing: -2px;
         }
 
         .bundle-type {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 0;
+            font-weight: 500;
         }
 
         .bundle-footer {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-top: auto;
             gap: 12px;
+            width: 100%;
+            margin-top: auto;
         }
 
         .bundle-price {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--mtn-blue);
         }
@@ -287,13 +301,14 @@
         .bundle-select-btn {
             background: var(--mtn-yellow);
             color: var(--mtn-blue);
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: none;
             border-radius: 6px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 12px;
+            font-size: 13px;
+            white-space: nowrap;
         }
 
         .bundle-select-btn:hover {
@@ -321,10 +336,11 @@
         }
 
         .landing-logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 30px;
             animation: fadeInDown 0.8s ease-out;
+            object-fit: contain;
         }
 
         .landing-title {
@@ -542,6 +558,7 @@
             min-height: 160px;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
 
         .upload-area:hover {
@@ -550,11 +567,21 @@
         }
 
         .upload-area.has-image {
-            min-height: 300px;
-            padding: 16px;
-            background: white;
             border-color: var(--success);
             border-style: solid;
+            padding: 0;
+            background: white;
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-area.has-image .upload-content {
+            display: none;
         }
 
         .upload-icon {
@@ -579,12 +606,12 @@
         }
 
         .preview-image {
-            max-width: 100%;
-            max-height: 280px;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            width: 100%;
+            height: 100%;
+            max-height: 400px;
             object-fit: contain;
             display: none;
+            border-radius: 8px;
         }
 
         .preview-image.show {
@@ -595,8 +622,9 @@
             font-size: 13px;
             color: var(--success);
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-top: 12px;
             display: none;
+            text-align: center;
         }
 
         .preview-info.show {
@@ -606,22 +634,25 @@
         .remove-btn {
             background: var(--error);
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             display: none;
+            margin: 12px auto 0;
+            width: fit-content;
         }
 
         .remove-btn.show {
-            display: inline-block;
+            display: block;
         }
 
         .remove-btn:hover {
             background: #dc2626;
+            transform: translateY(-2px);
         }
 
         .success-ticket {
@@ -885,7 +916,7 @@
             .logo-text-main { font-size: 16px; }
             .card h1 { font-size: 22px; }
             .bundle-grid { grid-template-columns: 1fr; }
-            .bundle-data { font-size: 36px; }
+            .bundle-data { font-size: 52px; }
             .timer-display { font-size: 40px; }
             .success-ticket { padding: 20px; }
             .success-title { font-size: 24px; }
@@ -908,7 +939,7 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <img src="data:image/webp;base64,UklGRlBrAABXRUJQVlA4WAoAAAAgAAAA/wcA/wcASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAAARyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAABcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggYmkAADCcBJ0BKgAIAAg+kUikTKWkpCIg0/gwsBIJaW78f4/pn/Xy70zuq3+V/vX7f/4D//+ihfPtf91/w3+o/sX7EegdjB5x/WP7N/kP6/+z/33fx+5nt7zbPJf2//p/4/8iPmT/rf2D9wn8W/vH/P/u/7//QD/Df49/rf73/jf2M+in+k/Zb3Hf2b/u/l38Av6N/hv/r/mP+H8bX+e/bD3Vf7j8bv+B8gX9z/4//2///v9+ox6BX7e+m5+4n/q+Vf+qf8X9qv+h8Iv+k///75fAB///bM/gH//62fqR/qP7l/f+8z/Xf23/MeuusDu32j/yn8w5E+Qv5Z/CfsZ7AX5B/L/89/bvJ72tW5f8j9mPYF9sPs/7M+2x9l5sf4XqAf6n0470ygF4t+id7G9hbpWAnEFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFix" class="logo-img" alt="MTN Logo">
+                <img src="mtn_logo.webp" class="logo-img" alt="MTN Logo">
                 <div class="logo-text">
                     <div class="logo-text-main">MTN Data Hub</div>
                     <div class="logo-text-sub">Fast & Affordable Bundles</div>
@@ -926,7 +957,7 @@
         <div id="landingPage" class="state active">
             <div class="landing-page">
                 <div class="landing-hero">
-                    <img src="data:image/webp;base64,UklGRlBrAABXRUJQVlA4WAoAAAAgAAAA/wcA/wcASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAAARyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAABcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggYmkAADCcBJ0BKgAIAAg+kUikTKWkpCIg0/gwsBIJaW78f4/pn/Xy70zuq3+V/vX7f/4D//+ihfPtf91/w3+o/sX7EegdjB5x/WP7N/kP6/+z/33fx+5nt7zbPJf2//p/4/8iPmT/rf2D9wn8W/vH/P/u/7//QD/Df49/rf73/jf2M+in+k/Zb3Hf2b/u/l38Av6N/hv/r/mP+H8bX+e/bD3Vf7j8bv+B8gX9z/4//2///v9+ox6BX7e+m5+4n/q+Vf+qf8X9qv+h8Iv+k///75fAB///bM/gH//62fqR/qP7l/f+8z/Xf23/MeuusDu32j/yn8w5E+Qv5Z/CfsZ7AX5B/L/89/bvJ72tW5f8j9mPYF9sPs/7M+2x9l5sf4XqAf6n0470ygF4t+id7G9hbpWAnEFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFixYsWLFix" class="landing-logo" alt="MTN">
+                    <img src="mtn_logo.webp" class="landing-logo" alt="MTN Logo">
                     <h1 class="landing-title">Get Instant Data Bundles</h1>
                     <p class="landing-subtitle">Fast approval, no delays. Browse our affordable data packages and get connected in minutes.</p>
                     
@@ -1049,12 +1080,14 @@
                         <div class="receipt-upload-section">
                             <div class="receipt-upload-title">📸 Upload Transaction Receipt</div>
                             <div class="upload-area" id="uploadArea" onclick="document.getElementById('receiptInput').click()">
-                                <div class="upload-icon">📤</div>
-                                <div class="upload-text">Click to Upload Receipt</div>
-                                <div class="upload-hint">or drag and drop (JPG, PNG, max 5MB)</div>
+                                <div class="upload-content">
+                                    <div class="upload-icon">📤</div>
+                                    <div class="upload-text">Click to Upload Receipt</div>
+                                    <div class="upload-hint">or drag and drop (JPG, PNG, max 5MB)</div>
+                                </div>
                                 <img id="receiptImage" class="preview-image" alt="Receipt">
-                                <div id="previewInfo" class="preview-info">✓ Receipt uploaded successfully</div>
                             </div>
+                            <div id="previewInfo" class="preview-info">✓ Receipt uploaded successfully</div>
                             <input type="file" id="receiptInput" class="upload-input" accept="image/*" onchange="handleReceiptUpload(event)">
                             <button class="remove-btn" id="removeBtn" onclick="removeReceipt()">Remove Receipt</button>
                         </div>
@@ -1173,7 +1206,7 @@
                         <div class="bundle-badge">MTN</div>
                         <div class="bundle-validity">📅 ${bundle.validity}</div>
                     </div>
-                    <div>
+                    <div class="bundle-content">
                         <div class="bundle-data">${bundle.data}</div>
                         <div class="bundle-type">${bundle.type}</div>
                     </div>
@@ -1229,8 +1262,15 @@
             const mtn = document.getElementById('senderMTN').value.trim();
             const name = document.getElementById('senderName').value.trim();
 
+            const mtnPrefixes = ['024', '054', '055', '059', '025', '053'];
+            const prefix = mtn.substring(0, 3);
+            
             if (!mtn || !/^[0-9]{10}$/.test(mtn)) {
-                showError('mtnError', 'Enter a valid 10-digit MoMo number');
+                showError('mtnError', 'Enter a valid 10-digit number');
+                return;
+            }
+            if (!mtnPrefixes.includes(prefix)) {
+                showError('mtnError', 'Please enter a valid MTN Ghana number (e.g., 024, 054, 055, 059)');
                 return;
             }
             if (!name) {
@@ -1348,8 +1388,13 @@
 
         function removeReceipt() {
             document.getElementById('receiptInput').value = '';
-            document.getElementById('uploadArea').classList.remove('has-image');
-            document.getElementById('receiptImage').classList.remove('show');
+            const uploadArea = document.getElementById('uploadArea');
+            uploadArea.classList.remove('has-image');
+            
+            const img = document.getElementById('receiptImage');
+            img.src = '';
+            img.classList.remove('show');
+            
             document.getElementById('previewInfo').classList.remove('show');
             document.getElementById('removeBtn').classList.remove('show');
         }
