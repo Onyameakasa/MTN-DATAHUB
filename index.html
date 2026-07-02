@@ -965,6 +965,176 @@
             .landing-logo { font-size: 40px; }
             .landing-btn { padding: 14px 32px; font-size: 16px; }
         }
+
+        /* Success Ticket Styles */
+        .success-ticket {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 48px rgba(0, 61, 165, 0.15);
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            animation: slideUp 0.6s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: scaleIn 0.8s ease-in-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 12px;
+        }
+
+        .success-subtitle {
+            font-size: 18px;
+            color: var(--mtn-blue);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .ticket-details {
+            background: linear-gradient(135deg, rgba(0, 61, 165, 0.05) 0%, rgba(255, 214, 0, 0.05) 100%);
+            border: 2px solid var(--mtn-yellow);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .ticket-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--mtn-blue);
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--mtn-yellow);
+        }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 61, 165, 0.1);
+            font-size: 15px;
+        }
+
+        .ticket-row:last-child {
+            border-bottom: none;
+        }
+
+        .ticket-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .ticket-value {
+            color: var(--mtn-blue);
+            font-weight: 700;
+        }
+
+        .delivery-info {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 5px solid var(--warning);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .delivery-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--mtn-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .delivery-text {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .delivery-highlight {
+            background: var(--mtn-yellow);
+            color: var(--mtn-blue);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 12px;
+            flex-direction: column;
+        }
+
+        .btn-success-primary {
+            background: linear-gradient(90deg, var(--mtn-yellow) 0%, #FFC400 100%);
+            color: var(--mtn-blue);
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 214, 0, 0.3);
+        }
+
+        .btn-success-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 214, 0, 0.4);
+        }
+
+        .btn-success-secondary {
+            background: white;
+            color: var(--mtn-blue);
+            padding: 16px 24px;
+            border: 2px solid var(--mtn-blue);
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success-secondary:hover {
+            background: var(--mtn-blue);
+            color: white;
+        }
+
     </style>
 </head>
 <body>
@@ -1242,16 +1412,50 @@
                 </div>
             </div>
 
-            <!-- SUCCESS STATE -->
+            <!-- SUCCESS STATE - PURCHASE TICKET -->
             <div id="successState" class="state">
-                <div class="card state-center">
-                    <div class="state-icon">✅</div>
-                    <div class="state-title success">Payment Approved!</div>
-                    <p class="state-message">
-                        <strong>Your payment has been successfully verified.</strong><br>
-                        Your data bundle will be delivered to your MTN line within minutes.
-                    </p>
-                    <button class="btn btn-success" onclick="resetFlow()">✓ Done</button>
+                <div class="success-ticket">
+                    <div class="success-icon">✅</div>
+                    <div class="success-title">Congratulations!</div>
+                    <div class="success-subtitle">Your Purchase is Confirmed</div>
+                    
+                    <div class="ticket-details">
+                        <div class="ticket-header">📋 PURCHASE RECEIPT</div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">Data Bundle</span>
+                            <span class="ticket-value" id="ticketBundleSuccess">2GB</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">Amount Paid</span>
+                            <span class="ticket-value" id="ticketAmountSuccess">GHS 12.00</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">Phone Number</span>
+                            <span class="ticket-value" id="ticketPhoneSuccess">024XXXXXXX</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">Transaction ID</span>
+                            <span class="ticket-value" id="ticketIdSuccess">TXN-000000</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="ticket-label">Status</span>
+                            <span class="ticket-value" style="color: var(--success);">✓ Approved</span>
+                        </div>
+                    </div>
+
+                    <div class="delivery-info">
+                        <div class="delivery-title">⏱️ Delivery Information</div>
+                        <div class="delivery-text">
+                            Your data bundle has been activated! You will receive your <span class="delivery-highlight">2GB data</span> shortly. <br><br>
+                            <strong>Please note:</strong> Data may take up to <span class="delivery-highlight">1 hour</span> to appear on your account. Start browsing once activated!<br><br>
+                            If you don't receive your data within 1 hour, please contact our support team.
+                        </div>
+                    </div>
+
+                    <div class="success-actions">
+                        <button class="btn-success-primary" onclick="resetFlow()">← Back to Home</button>
+                        <button class="btn-success-secondary" onclick="showBundles()">Browse More Bundles</button>
+                    </div>
                 </div>
             </div>
 
@@ -1657,6 +1861,19 @@
 
         function showSuccessState() {
             hideAllStates();
+            
+            // Populate ticket details
+            document.getElementById('ticketBundleSuccess').textContent = selectedBundle.data;
+            document.getElementById('ticketAmountSuccess').textContent = 'GHS ' + selectedBundle.price.toFixed(2);
+            document.getElementById('ticketPhoneSuccess').textContent = document.getElementById('senderMTN').value || '024XXXXXXX';
+            document.getElementById('ticketIdSuccess').textContent = currentPaymentId || 'TXN-000000';
+            
+            // Update delivery info with bundle name
+            const deliveryText = document.querySelector('.delivery-text');
+            if (deliveryText) {
+                deliveryText.innerHTML = 'Your data bundle has been activated! You will receive your <span class="delivery-highlight">' + selectedBundle.data + ' data</span> shortly. <br><br><strong>Please note:</strong> Data may take up to <span class="delivery-highlight">1 hour</span> to appear on your account. Start browsing once activated!<br><br>If you don't receive your data within 1 hour, please contact our support team.';
+            }
+            
             document.getElementById('successState').classList.add('active');
             updateProgress(100);
         }
