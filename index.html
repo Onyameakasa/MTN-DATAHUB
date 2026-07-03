@@ -382,7 +382,19 @@
         
         let currentId = null, pollInterval = null, isNotifActive = true, timer = null, selectedBundle = null, selectedFile = null;
 
-        window.onload = () => { renderBundles(); startNotifs(); };
+        window.onload = () => { 
+            renderBundles(); 
+            startNotifs(); 
+            // Initialize history state
+            history.replaceState({ pageId: 'heroPage' }, '');
+        };
+
+        window.onpopstate = (event) => {
+            if (event.state && event.state.pageId) {
+                // Show the page from history state without pushing a new one
+                showPage(event.state.pageId, false);
+            }
+        };
 
         function startNotifs() {
             const container = document.getElementById('notifContainer');
@@ -521,7 +533,14 @@
         }
 
         function showError(title, msg) { document.getElementById('errorTitle').textContent = title; document.getElementById('errorMsg').textContent = msg; showPage('errorPage'); }
-        function showPage(id) { document.querySelectorAll('.state').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+        function showPage(id, push = true) { 
+            document.querySelectorAll('.state').forEach(s => s.classList.remove('active')); 
+            document.getElementById(id).classList.add('active'); 
+            window.scrollTo(0,0); 
+            if (push) {
+                history.pushState({ pageId: id }, '');
+            }
+        }
         
         function clearReceipt() {
             selectedFile = null;
